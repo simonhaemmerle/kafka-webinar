@@ -1,2 +1,2 @@
 resources:
-  - ../kafka-zookeeper-deployment.yaml
+  - ./kafka-zookeeper-deployment.yaml

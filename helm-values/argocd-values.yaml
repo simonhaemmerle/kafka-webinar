@@ -8,7 +8,7 @@ server:
     - name: webinar
       description: 'Kafka webinar deployment'
       sourceRepos:
-        - git@github.com:simonhaemmerle/kafka-webinar
+        - https://github.com/simonhaemmerle/kafka-webinar.git
       destinations:
         - namespace: default
           server: https://kubernetes.default.svc
@@ -28,7 +28,7 @@ server:
       project: webinar
       source:
         path: argo-deployment
-        repoURL: git@github.com:simonhaemmerle/kafka-webinar
+        repoURL: https://github.com/simonhaemmerle/kafka-webinar.git
         targetRevision: HEAD
       syncPolicy:
         automated:
