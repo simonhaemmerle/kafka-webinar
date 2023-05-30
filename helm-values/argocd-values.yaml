@@ -1,0 +1,41 @@
+# https://github.com/argoproj/argo-helm/tree/master/charts/argo-cd
+
+server:
+  ingress:
+    enabled: false
+
+  additionalProjects:
+    - name: webinar
+      description: 'Kafka webinar deployment'
+      sourceRepos:
+        - git@github.com:simonhaemmerle/kafka-webinar
+      destinations:
+        - namespace: default
+          server: https://kubernetes.default.svc
+      clusterResourceWhitelist:
+        - group: '*'
+          kind: '*'
+
+  additionalApplications:
+    - name: webinar-test
+      namespace: default
+      destination:
+        namespace: default
+        server: https://kubernetes.default.svc
+      clusterResourceWhitelist:
+        - group: '*'
+          kind: '*'
+      project: webinar
+      source:
+        path: argo-deployment
+        repoURL: git@github.com:simonhaemmerle/kafka-webinar
+        targetRevision: HEAD
+      syncPolicy:
+        automated:
+          prune: true
+        retry:
+          limit: 5
+          backoff:
+            duration: 10s
+            factor: 2
+            maxDuration: 5m

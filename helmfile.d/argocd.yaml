@@ -1,0 +1,13 @@
+# helm repo add argo https://argoproj.github.io/argo-helm
+repositories:
+  - name: argo
+    url: https://argoproj.github.io/argo-helm
+
+releases:
+  # helm install argo argo/argo-cd
+  - name: argo
+    chart: argo/argo-cd
+    version: ~5.34.x
+    namespace: default
+    values:
+      - '../helm-values/argocd-values.yaml'
