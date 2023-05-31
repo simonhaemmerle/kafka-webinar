@@ -227,3 +227,34 @@ kubectl get service simple-kafka
 ```shell
 ./kafka_2.12-3.3.2/bin/kafka-console-consumer.sh --bootstrap-server 82.165.231.240:31429 --topic test --from-beginning
 ```
+
+
+# Kubernetes setup with ArgoCD
+
+## Installing ArgoCD
+
+```shell
+helmfile apply -f helmfile.d/argocd.yaml
+```
+
+## Creating ArgoCD app
+
+```shell
+kubectl apply -f argocd-app.yaml 
+```
+
+## Visit ArgoCD UI
+
+Firt we need to retrieve the initial admin password.
+
+```shell
+kubectl get secrets/argocd-initial-admin-secret --template={{.data.password}} | base64 -D
+```
+
+Copy the password to clipboard and establish a port fowarding.
+
+```shell
+kubectl port-forward svc/argo-argocd-server 8080:80
+```
+
+The ArgoCD UI should now be reachable at `localhost:8080`. Use user `admin` and the initial admin password to login.
